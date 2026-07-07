@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>玫瑰唱片 · 唯一玫瑰宋祖儿</title>
+    <!-- 港风复古字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-image: url('https://backup.fukit.cn/autoupload/fr/-dGeejhaqMWfpypClEgqRBCguVt7ZQrmsERzGWPjwdeyl5f0KlZfm6UsKj-HyTuv/20260706/ino1/673X1051/%E7%94%BB%E6%9D%BF_2.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #1a0f0f;
+            display: flex;
+            flex-direction: column;
+            padding: 3vh 5vw 3vh;
+            position: relative;
+            color: #fff;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* ===== 全屏半透明遮罩 ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== 顶部区域：品牌标识 + 标题（紧密排列） ===== */
+        .top-area {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        /* ===== 品牌标识 ===== */
+        .brand-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "Ma Shan Zheng", "华文楷体", "KaiTi", serif;
+            font-size: clamp(14px, 2.2vw, 20px);
+            font-weight: 400;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            padding: 0 2px;
+        }
+        .brand-top .left {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 14px;
+            border-radius: 30px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: clamp(15px, 2.4vw, 22px);
+        }
+        .brand-top .right {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 14px;
+            border-radius: 30px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: clamp(12px, 2vw, 18px);
+            white-space: nowrap;
+        }
+
+        /* ===== 歌曲标题 — 紧挨品牌标识 ===== */
+        .song-title {
+            font-family: "Ma Shan Zheng", "华文楷体", "KaiTi", serif;
+            font-size: clamp(20px, 5vw, 36px);
+            font-weight: 400;
+            letter-spacing: clamp(2px, 0.6vw, 6px);
+            line-height: 1.2;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.3);
+            padding: 0 6px;
+            margin: 0;
+        }
+        .song-title .title-icon {
+            color: #dbb8ae;
+            font-weight: 300;
+            margin: 0 2px;
+        }
+
+        /* ===== 中间弹性撑开 ===== */
+        .spacer {
+            flex: 1;
+            min-height: 10px;
+        }
+
+        /* ===== 底部区域：唱片 + 演唱者 + 播放器 ===== */
+        .bottom-section {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 0 2px;
+        }
+
+        /* ===== 唱片容器（左移 38px，上移 10px） ===== */
+        .record-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            transform: translate(-38px, -10px);  /* 水平左移38px，垂直上移10px */
+        }
+
+        /* ===== 唱片样式 ===== */
+        .record-disc {
+            width: clamp(190px, 40.32vw, 302px);
+            height: clamp(190px, 40.32vw, 302px);
+            border-radius: 50%;
+            background-image: url('https://backup.fukit.cn/autoupload/fr/-dGeejhaqMWfpypClEgqRBCguVt7ZQrmsERzGWPjwdeyl5f0KlZfm6UsKj-HyTuv/20260707/5KmM/1076X1071/%E7%BB%84_7.png');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 0 1.5px #1a0f0f, 0 8px 40px rgba(0, 0, 0, 0.5);
+            animation: spin 8s linear infinite;
+            animation-play-state: paused;
+            will-change: transform;
+        }
+
+        .record-disc.playing {
+            animation-play-state: running;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== 演唱者行 ===== */
+        .artist-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: clamp(16px, 2.8vw, 28px);
+            width: 100%;
+            padding: 0 4px;
+            margin: 0;
+            opacity: 1;
+        }
+
+        .artist-avatar {
+            width: clamp(57px, 9.75vw, 78px);
+            height: clamp(57px, 9.75vw, 78px);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #d9c8be;
+        }
+
+        .artist-label {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0px;
+        }
+        .artist-label .label {
+            font-size: clamp(10px, 1.4vw, 14px);
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #f0e0d8;
+            opacity: 0.7;
+        }
+        .artist-label .name {
+            font-family: "Ma Shan Zheng", "华文楷体", "KaiTi", serif;
+            font-size: clamp(16px, 2.8vw, 24px);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #fff;
+            text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+        }
+
+        /* 分隔装饰线 */
+        .divider-line {
+            width: 50%;
+            height: 1px;
+            margin: 0 auto;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 190, 0.25), transparent);
+        }
+
+        /* ===== 音频播放器 ===== */
+        .audio-player {
+            background: rgba(0, 0, 0, 0.30);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 60px;
+            padding: clamp(6px, 1.2vw, 12px) clamp(12px, 2vw, 20px) clamp(6px, 1.2vw, 12px) clamp(14px, 2.2vw, 24px);
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1.5vw, 16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            width: 100%;
+        }
+        #playBtn {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            width: clamp(36px, 6vw, 48px);
+            height: clamp(36px, 6vw, 48px);
+            border-radius: 50%;
+            font-size: clamp(16px, 2.6vw, 22px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.15s;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        #playBtn:active {
+            transform: scale(0.88);
+            background: rgba(255, 255, 255, 0.20);
+        }
+        .progress-bar {
+            flex: 1;
+            height: 3px;
+            min-height: 3px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #f0d5c8;
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+        .time-display {
+            font-size: clamp(11px, 1.6vw, 14px);
+            color: rgba(255, 255, 255, 0.55);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            min-width: clamp(64px, 10vw, 80px);
+            text-align: right;
+            font-weight: 300;
+            flex-shrink: 0;
+        }
+
+        /* ===== 极小屏适配（< 360px） ===== */
+        @media (max-width: 360px) {
+            body {
+                padding: 2vh 3vw 2vh;
+            }
+            .brand-top .left {
+                font-size: 12px;
+                padding: 1px 10px;
+            }
+            .brand-top .right {
+                font-size: 10px;
+                padding: 1px 10px;
+            }
+            .song-title {
+                font-size: 17px;
+                letter-spacing: 1px;
+            }
+            .artist-avatar {
+                width: 48px;
+                height: 48px;
+            }
+            .artist-label .name {
+                font-size: 13px;
+            }
+            .artist-label .label {
+                font-size: 9px;
+            }
+            .artist-row {
+                gap: 12px;
+            }
+            #playBtn {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            .time-display {
+                font-size: 9px;
+                min-width: 54px;
+            }
+            .audio-player {
+                padding: 4px 8px 4px 10px;
+                gap: 5px;
+            }
+            .record-disc {
+                width: 134px;
+                height: 134px;
+            }
+            .top-area {
+                gap: 1px;
+            }
+            .bottom-section {
+                gap: 10px;
+            }
+            /* 极小屏：左移6px，上移10px（保持比例） */
+            .record-container {
+                transform: translate(-6px, -10px);
+            }
+        }
+
+        /* ===== 大屏适配（> 500px） ===== */
+        @media (min-width: 500px) {
+            body {
+                padding: 4vh 8vw 4vh;
+            }
+            .bottom-section {
+                max-width: 440px;
+            }
+        }
+
+        /* ===== 横屏适配 ===== */
+        @media (orientation: landscape) and (max-height: 500px) {
+            body {
+                padding: 1.5vh 5vw 1.5vh;
+            }
+            .song-title {
+                font-size: clamp(14px, 3.5vh, 22px);
+            }
+            .artist-avatar {
+                width: 42px;
+                height: 42px;
+            }
+            .artist-label .name {
+                font-size: 13px;
+            }
+            .artist-label .label {
+                font-size: 8px;
+            }
+            .artist-row {
+                gap: 12px;
+            }
+            #playBtn {
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
+            }
+            .audio-player {
+                padding: 3px 8px 3px 10px;
+                gap: 6px;
+            }
+            .time-display {
+                font-size: 9px;
+                min-width: 50px;
+            }
+            .brand-top .left {
+                font-size: 11px;
+                padding: 1px 10px;
+            }
+            .brand-top .right {
+                font-size: 9px;
+                padding: 1px 10px;
+            }
+            .record-disc {
+                width: 101px;
+                height: 101px;
+            }
+            .top-area {
+                gap: 1px;
+            }
+            .bottom-section {
+                gap: 8px;
+            }
+            .spacer {
+                min-height: 4px;
+            }
+            /* 横屏：左移6px，上移10px */
+            .record-container {
+                transform: translate(-6px, -10px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部区域：品牌标识 + 标题（紧密排列） -->
+    <div class="top-area">
+        <header class="brand-top">
+            <span class="left">玫瑰唱片</span>
+            <span class="right">🌹 唯一玫瑰宋祖儿</span>
+        </header>
+
+        <h1 class="song-title">
+            <span class="title-icon">《</span>羞答答的玫瑰静悄悄地开<span class="title-icon">》</span>
+        </h1>
+    </div>
+
+    <!-- 中间弹性撑开 -->
+    <div class="spacer"></div>
+
+    <!-- 底部区域：唱片 + 演唱者 + 播放器 -->
+    <section class="bottom-section">
+        <div class="record-container">
+            <div class="record-disc" id="recordDisc"></div>
+        </div>
+
+        <div class="artist-row">
+            <img class="artist-avatar"
+                 src="https://www.imgfox.cn/apis/uploads/20260706/d79b01c459e446df/红玫瑰.jpg"
+                 alt="头像">
+            <div class="artist-label">
+                <span class="label">✦ 演唱者</span>
+                <span class="name">@宋祖儿lareina</span>
+            </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <div class="audio-player">
+            <button id="playBtn" aria-label="播放/暂停">▶</button>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+        </div>
+    </section>
+
+    <audio id="audioPlayer"
+           src="https://img.tofaka.com/autoupload/fr/-dGeejhaqMWfpypClEgqRBCguVt7ZQrmsERzGWPjwdeyl5f0KlZfm6UsKj-HyTuv/20260706/dRGS/%E7%BE%9E%E7%AD%94%E7%AD%94%E7%9A%84%E7%8E%AB%E7%91%B0%E9%9D%99%E6%82%84%E6%82%84%E5%9C%B0%E5%BC%80.mp3"
+           preload="metadata">
+</audio>
+
+<script>
+    (function() {
+        const audio = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const progressFill = document.getElementById('progressFill');
+        const progressBar = document.getElementById('progressBar');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const recordDisc = document.getElementById('recordDisc');
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || !isFinite(seconds) || seconds < 0) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
+
+        function updateProgress() {
+            if (audio.duration && isFinite(audio.duration)) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = Math.min(percent, 100) + '%';
+                timeDisplay.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+            } else {
+                timeDisplay.textContent = '0:00 / 0:00';
+            }
+        }
+
+        audio.addEventListener('loadedmetadata', function() {
+            if (audio.duration && isFinite(audio.duration)) {
+                timeDisplay.textContent = formatTime(0) + ' / ' + formatTime(audio.duration);
+            }
+        });
+
+        audio.addEventListener('timeupdate', updateProgress);
+
+        audio.addEventListener('play', function() {
+            recordDisc.classList.add('playing');
+        });
+
+        audio.addEventListener('pause', function() {
+            recordDisc.classList.remove('playing');
+        });
+
+        audio.addEventListener('ended', function() {
+            playBtn.textContent = '▶';
+            progressFill.style.width = '0%';
+            recordDisc.classList.remove('playing');
+            if (audio.duration && isFinite(audio.duration)) {
+                timeDisplay.textContent = formatTime(0) + ' / ' + formatTime(audio.duration);
+            } else {
+                timeDisplay.textContent = '0:00 / 0:00';
+            }
+        });
+
+        playBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (audio.paused) {
+                audio.play().catch(function() {});
+                playBtn.textContent = '⏸';
+                recordDisc.classList.add('playing');
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶';
+                recordDisc.classList.remove('playing');
+            }
+        });
+
+        progressBar.addEventListener('click', function(e) {
+            if (!audio.duration || !isFinite(audio.duration)) return;
+            const rect = this.getBoundingClientRect();
+            const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            audio.currentTime = percent * audio.duration;
+            if (audio.paused) updateProgress();
+        });
+
+        audio.addEventListener('error', function() {
+            timeDisplay.textContent = '⚠️ 音频加载失败';
+        });
+
+        setTimeout(updateProgress, 100);
+    })();
+</script>
+
+</body>
+</html>
